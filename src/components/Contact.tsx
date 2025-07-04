@@ -15,7 +15,7 @@ function sendEmail(name: string, email: string, message: string) {
   });
 }
 // Removed from here
-export default function Contact() {
+export default function Contact({ darkMode }: { darkMode: boolean }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -51,7 +51,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-purple-900 via-indigo-900 to-gray-900">
+    <section id="contact" className={darkMode ? "py-20 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900" : "py-20 bg-gradient-to-br from-purple-900 via-indigo-900 to-gray-900"}>
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}

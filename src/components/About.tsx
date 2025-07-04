@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Award, BookOpen, Coffee, Users } from 'lucide-react';
 
-export default function About() {
+export default function About({ darkMode }: { darkMode: boolean }) {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -16,7 +16,7 @@ export default function About() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden">
+    <section className={darkMode ? "py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden" : "py-20 bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 relative overflow-hidden"}>
       <motion.div
         className="absolute inset-0 opacity-10"
         animate={{
@@ -55,56 +55,22 @@ export default function About() {
             transition={{ delay: 0.2 }}
           >
             <div className="prose prose-lg max-w-none text-gray-700">
-              {/* Update these paragraphs with your personal information */}
               <p className="mb-4">
-                Hello! I'm Shanu Pratap Rajpoot, a  Full Stack Developer in building scalable web applications. 
-                I specialize in the MERN stack and have a deep passion for creating elegant solutions to complex problems.
+                Hello! I'm Shanu Pratap Rajpoot, a Full Stack MERN Developer passionate about building scalable web applications and AI-powered solutions.
               </p>
               <p className="mb-4">
-                I Studying from Shri Ram Institute Of Technology at stream  in Computer Science and have since worked with various startups 
-                and established companies. My expertise includes building e-commerce platforms, real-time applications, and 
-                enterprise-level software solutions.
+                I have completed 4+ internships at top EdTech and IT companies, am CCNA certified by Cisco Networking Academy, and have hands-on experience in AI, Machine Learning, and cloud technologies.
               </p>
               <p className="mb-4">
-                Throughout my career, to build fintech, healthcare, and e-commerce. I'm particularly proud of developing a 
-                high-performance trading platform that handles millions of transactions daily.
+                I love contributing to open source, learning new technologies, and solving real-world problems with code. Currently, I am open for new opportunities and collaborations.
               </p>
               <p>
-                When //  I'm not coding, // I enjoy contributing to open-source projects, mentoring junior developers, and writing 
-                technical articles on my blog. I'm always excited to learn new technologies and believe in writing clean, 
-                maintainable code that solves real-world problems.
+                Let's connect and build something amazing together!
               </p>
             </div>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow"
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: 0.2 + index * 0.1 }}
-                whileHover={{ y: -5 }}
-              >
-                <motion.div
-                  className="text-emerald-600 mb-2 flex justify-center"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  {stat.icon}
-                </motion.div>
-                <motion.div 
-                  className="text-2xl font-bold text-emerald-900 mb-1"
-                  initial={{ scale: 0.5 }}
-                  animate={inView ? { scale: 1 } : {}}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-gray-600 text-sm">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
+          {/* Remove the stats grid below */}
         </motion.div>
       </div>
     </section>

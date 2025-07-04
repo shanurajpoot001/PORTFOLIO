@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Code2, Database, Globe, Server } from 'lucide-react';
@@ -25,7 +26,28 @@ const skills = [
   }
 ];
 
-export default function Skills() {
+const skillLevels: { [key: string]: number } = {
+  "React": 90,
+  "TypeScript": 85,
+  "Tailwind CSS": 80,
+  "Redux": 75,
+  "Next.js": 70,
+  "Node.js": 85,
+  "Express": 80,
+  "REST APIs": 80,
+  "GraphQL": 65,
+  "MongoDB": 80,
+  "PostgreSQL": 70,
+  "Redis": 60,
+  "Mongoose": 75,
+  "Git": 90,
+  "Docker": 70,
+  "AWS": 60,
+  "CI/CD": 65,
+  "Jest": 70
+};
+
+export default function Skills({ darkMode }: { darkMode: boolean }) {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -53,7 +75,7 @@ export default function Skills() {
   };
 
   return (
-    <section id="skills" className="py-20 bg-white relative overflow-hidden">
+    <section id="skills" className={darkMode ? "py-20 bg-gray-900 relative overflow-hidden" : "py-20 bg-white relative overflow-hidden"}>
       <motion.div
         className="absolute inset-0 opacity-5"
         animate={{
@@ -88,12 +110,9 @@ export default function Skills() {
           {skills.map((skill, index) => (
             <motion.div
               key={skill.category}
-              className="bg-gradient-to-br from-white to-indigo-50 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300 hover:shadow-xl"
+              className={darkMode ? "bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300 hover:shadow-xl" : "bg-gradient-to-br from-white to-indigo-50 rounded-lg p-6 shadow-lg transform hover:scale-105 transition-transform duration-300 hover:shadow-xl"}
               variants={itemVariants}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
             >
               <motion.div 
                 className="flex items-center mb-4 text-indigo-600"
@@ -104,17 +123,27 @@ export default function Skills() {
                 {skill.icon}
                 <h3 className="text-xl font-semibold ml-2">{skill.category}</h3>
               </motion.div>
-              <ul className="space-y-2">
+              <ul className="space-y-2 mt-4">
                 {skill.items.map((item, itemIndex) => (
                   <motion.li 
                     key={item} 
-                    className="flex items-center text-gray-700"
+                    className="flex flex-col"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 + itemIndex * 0.1 }}
                   >
-                    <span className="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
-                    {item}
+                    <div className="flex items-center text-gray-700 dark:text-gray-200">
+                      <span className="w-2 h-2 bg-indigo-400 rounded-full mr-2"></span>
+                      {item}
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mt-1">
+                      <motion.div
+                        className="bg-indigo-500 h-2 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: skillLevels[item] + '%' }}
+                        transition={{ duration: 1, delay: 0.2 + itemIndex * 0.1 }}
+                      />
+                    </div>
                   </motion.li>
                 ))}
               </ul>
